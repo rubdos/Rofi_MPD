@@ -95,6 +95,9 @@ def get_album_release_epoch(album=None, song_data=None):
 
         if date.isnumeric():
             year = int(date)
+            # Dates before 1905 are not representable with a unix timestamp
+            if year < 1905:
+                return LONG_TIME_AGO
             epoch = datetime.datetime(year, 1, 1)
         else:
             split_char: str
